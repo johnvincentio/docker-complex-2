@@ -11,16 +11,16 @@ script:
   - docker run -e CI=true johnvincentio/docker-complex npm run test -- --coverage
 
 after_success:
-  - docker build -t johnvincentio/complex-client -f ./client/Dockerfile ./client
-  - docker build -t johnvincentio/complex-nginx -f ./nginx/Dockerfile ./nginx
-  - docker build -t johnvincentio/complex-server -f ./server/Dockerfile ./server
-  - docker build -t johnvincentio/complex-worker -f ./worker/Dockerfile ./worker
+  - docker build -t johnvincentio/jv:client -f ./client/Dockerfile ./client
+  - docker build -t johnvincentio/jv:nginx -f ./nginx/Dockerfile ./nginx
+  - docker build -t johnvincentio/jv:server -f ./server/Dockerfile ./server
+  - docker build -t johnvincentio/jv:worker -f ./worker/Dockerfile ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # Take those images and push them to docker hub
-  - docker push johnvincentio/complex-client
-  - docker push johnvincentio/complex-nginx
-  - docker push johnvincentio/complex-server
-  - docker push johnvincentio/complex-worker
+  - docker push johnvincentio/jv:client
+  - docker push johnvincentio/jv:nginx
+  - docker push johnvincentio/jv:server
+  - docker push johnvincentio/jv:worker
